@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @post.title %>
+</p>
+
+<p>
+  <strong>Source:</strong>
+  <%= @post.source %>
+</p>
+
+
+<%= link_to 'Edit', edit_board_post_path(@board, @post) %> |
+<%= link_to 'Back', boards_path %>

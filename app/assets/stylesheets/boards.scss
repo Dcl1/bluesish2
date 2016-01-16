@@ -1,0 +1,24 @@
+// Place all the styles related to the Boards controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.boardConfig {
+	
+	width: 90%;
+	min-height: 800px;
+	box-shadow: 1px 1px 3px #888;
+	margin: 5% 5% 5% 5%;
+	background-color: #ffffff;
+
+}
+
+.content {
+	width: 20%;
+	padding: 3% 2% 3% 2%;
+	border: 1px solid grey;
+	display: inline-block;
+	margin: auto;
+	text-align: center;
+
+}
