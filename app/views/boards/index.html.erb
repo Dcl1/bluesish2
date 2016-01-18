@@ -9,6 +9,7 @@
 
 <div class="boardConfig"> <!-- Beginning of board config -->
   <%= link_to 'New Post', new_board_post_path(@boards.first) %>
+  <%= link_to 'New Article', new_board_link_path(@boards.first) %>
   <br>
   <br>
 
@@ -17,6 +18,14 @@
       <div><h3><%=  post.title %></h3></div>
       <div><%=  post.source %> </div>
       <div><%= link_to 'Show', board_post_path(@boards.first, post) %> </div>
+    </div>
+  <% end %>
+
+  <% @links.each do |link| %>
+    <div class="content">
+      <div><%= image_tag link.img_source, :class => "style_image" %></div>
+      <div><%= link.title %></div>
+      <div><%= link_to 'Show', board_link_path(@boards.first, link) %></div>
     </div>
   <% end %>
 

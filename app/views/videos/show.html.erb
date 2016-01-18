@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+ <div><%= image_tag @video.larger_thumbnail, :class => "style_image" %></div>
+
+ <div>
+ 	<%= @iframe %>
+ </div>
+
+<p>
+  <strong>Title:</strong>
+  <%= @video.title %>
+</p>
+
+<p>
+  <strong>Source:</strong>
+  <%= @video.source %>
+</p>
+
+<p>
+  <strong>Board:</strong>
+  <%= @video.board_id %>
+</p>
+
+<p>
+  <strong>iframe:</strong>
+  <%= @video.iFrame_Source %>
+</p>
+
+<p>
+  <strong>date:</strong>
+  <%= @video.date %>
+</p>
+
+<p>
+  <strong>provider:</strong>
+  <%= @video.provider %>
+</p>
+
+<p>
+  <strong>description:</strong>
+  <%= @video.description %>
+</p>
+
+<%= link_to 'Edit', edit_video_path(@video) %> |
+<%= link_to 'Back', videos_path %>

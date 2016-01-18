@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
   
-  resources :links
+
+  resources :videos
   resources :boards do
     resources :posts
+    resources :links
   end
 
   root 'boards#index'

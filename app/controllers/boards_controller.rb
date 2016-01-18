@@ -7,7 +7,11 @@ class BoardsController < ApplicationController
     @boards = Board.all
 
     @boards.each do |board|
-    @posts = Post.where(board_id: board.id).order("created_at DESC")
+      @posts = Post.where(board_id: board.id).order("created_at DESC")
+    end
+
+    @boards.each do |board|
+      @links = Link.where(board_id: board.id).order("created_at DESC")
     end
   end
 
