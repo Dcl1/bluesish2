@@ -7,38 +7,60 @@
 
 <br>
 
-<div class="boardConfig"> <!-- Beginning of board config -->
-  <%= link_to 'New Post', new_board_post_path(@boards.first) %>
-  <%= link_to 'New Article', new_board_link_path(@boards.first) %>
-  <br>
-  <br>
 
-  <% @posts.each do |post| %>
-    <div class="content">
-      <div><h3><%=  post.title %></h3></div>
-      <div><%=  post.source %> </div>
-      <div><%= link_to 'Show', board_post_path(@boards.first, post) %> </div>
+<% @boards.each do |board| %>
+  <div class="boardConfig"> <!-- Beginning of board config -->
+    <%= link_to 'New Post', new_board_post_path(board) %>
+    <%= link_to 'New Article', new_board_link_path(board) %>
+    <%= link_to 'New Video', new_board_video_path(board) %>
+
+    <br>
+    <br>
+
+  
+
+   
+    <% @sorted_content.select{|item| item.board_id == board.id}.each do |content| %>
+      <% if content.class == Link %>
+         <div class="content">
+          <div><%= image_tag content.img_source, :class => "style_image" %></div>
+          <div><%= content.title %></div>
+          <div><%= content.created_at %></div>
+          <div><%= link_to 'Show', board_link_path(board, content) %></div>
+        </div>
+      <% elsif content.class == Video %>
+       <div class="content">
+          <div><%= image_tag content.smaller_thumbnail, :class => "style_image" %></div>
+          <div><%= content.title %></div>
+          <div><%= content.created_at %></div>
+          <div><%= link_to 'Show', board_video_path(board, content) %></div>
+        </div>
+      <% elsif content.class == Post %>
+        <div class="content">
+          <div><h3><%=  content.title %></h3></div>
+          <div><%=  content.source %> </div>
+          <div><%= link_to 'Show', board_post_path(board, content) %> </div>
+        </div>
+      <% else %>
+        <div> else </div>
+      <% end %>
+    <% end %>
+
+
+
+
+    <h3> <%= board.title %> </h3>
+    <h3> <%= board.id %> </h3>
+    <div><%= link_to 'Show', board %></div>
+    <div><%= link_to 'Destroy', board, method: :delete, data: { confirm: 'Are you sure?' } %></div>
+
+    <br>
+    <div>
+
     </div>
-  <% end %>
+  </div> <!-- End of board config -->
 
-  <% @links.each do |link| %>
-    <div class="content">
-      <div><%= image_tag link.img_source, :class => "style_image" %></div>
-      <div><%= link.title %></div>
-      <div><%= link_to 'Show', board_link_path(@boards.first, link) %></div>
-    </div>
-  <% end %>
-
-  <h3> <%= @boards.first.title %> </h3>
-  <div><%= link_to 'Show', @boards.first %></div>
-  <div><%= link_to 'Destroy', @boards.first, method: :delete, data: { confirm: 'Are you sure?' } %></div>
-
-  <br>
-  <div>
-
-  </div>
-</div> <!-- End of board config -->
-
+<% end %>
 
 <!--
 <table>

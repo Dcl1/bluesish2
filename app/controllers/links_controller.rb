@@ -39,6 +39,8 @@ class LinksController < ApplicationController
 
     @link.img_source = object.images.first.src.to_s
 
+   
+
     respond_to do |format|
       if @link.save
         format.html { redirect_to board_link_path(@board, @link), notice: 'Link was successfully created.' }
@@ -69,7 +71,7 @@ class LinksController < ApplicationController
   def destroy
     @link.destroy
     respond_to do |format|
-      format.html { redirect_to links_url, notice: 'Link was successfully destroyed.' }
+      format.html { redirect_to boards_url, notice: 'Link was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -86,6 +88,6 @@ class LinksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def link_params
-      params.require(:link).permit(:source, :img_source, :title)
+      params.require(:link).permit(:source, :img_source, :title, :type)
     end
 end

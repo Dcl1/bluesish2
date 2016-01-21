@@ -12,6 +12,11 @@
 </p>
 
 <p>
+  <strong>Board id:</strong>
+  <%= @video.board_id %>
+</p>
+
+<p>
   <strong>Source:</strong>
   <%= @video.source %>
 </p>
@@ -41,5 +46,5 @@
   <%= @video.description %>
 </p>
 
-<%= link_to 'Edit', edit_video_path(@video) %> |
-<%= link_to 'Back', videos_path %>
+<%= link_to 'Edit', edit_board_video_path(@board, @video) %> |
+<%= link_to 'Back', boards_path %>

@@ -1,18 +1,29 @@
 class BoardsController < ApplicationController
   before_action :set_board, only: [:show, :edit, :update, :destroy]
+  before_action :sort_content, only: [:index]
 
   # GET /boards
   # GET /boards.json
+
+
+
   def index
     @boards = Board.all
 
-    @boards.each do |board|
-      @posts = Post.where(board_id: board.id).order("created_at DESC")
-    end
 
-    @boards.each do |board|
-      @links = Link.where(board_id: board.id).order("created_at DESC")
-    end
+    @posts = Post.all
+    @links = Link.all
+    @videos = Video.all
+
+
+   
+    puts @sorted_content
+
+    #@boards.each do |board|
+     # @posts = Post.where(board_id: board.id).order("created_at DESC")
+     # @links = Link.where(board_id: board.id).order("created_at DESC")
+     # @videos = Video.where(board_id: board.id).order("created_at DESC")
+    #end
   end
 
   # GET /boards/1
@@ -70,6 +81,17 @@ class BoardsController < ApplicationController
   end
 
   private
+    
+
+    def sort_content
+      posts = Post.all
+      links = Link.all
+      videos = Video.all
+
+      @content = posts + links + videos
+      @sorted_content = @content.sort_by{ |obj| obj.created_at }.reverse!
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_board
       @board = Board.find(params[:id])
@@ -80,3 +102,11 @@ class BoardsController < ApplicationController
       params.require(:board).permit(:title)
     end
 end
+
+
+
+
+
+
+
+

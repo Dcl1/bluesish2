@@ -2,6 +2,7 @@ VideoInfo.provider_api_keys = { youtube: 'AIzaSyAdoZSg-_HK4ZWzg487jFBZ__gvpuU_L5
 
 class VideosController < ApplicationController
   before_action :set_video, only: [:show, :edit, :update, :destroy]
+  before_action :set_board
 
   # GET /videos
   # GET /videos.json
@@ -28,8 +29,10 @@ class VideosController < ApplicationController
   # POST /videos.json
   def create
     @video = Video.new(video_params)
+    @video.board_id = @board.id
 
     urlVideo = VideoInfo.new(@video.source)
+
 
     @video.iFrame_Source = urlVideo.embed_code
     @video.title = urlVideo.title
@@ -39,9 +42,10 @@ class VideosController < ApplicationController
     @video.smaller_thumbnail = urlVideo.thumbnail_small
     @video.larger_thumbnail = urlVideo.thumbnail_large
 
+
     respond_to do |format|
       if @video.save
-        format.html { redirect_to @video, notice: 'Video was successfully created.' }
+        format.html { redirect_to board_video_path(@board, @video), notice: 'Video was successfully created.' }
         format.json { render :show, status: :created, location: @video }
       else
         format.html { render :new }
@@ -55,7 +59,7 @@ class VideosController < ApplicationController
   def update
     respond_to do |format|
       if @video.update(video_params)
-        format.html { redirect_to @video, notice: 'Video was successfully updated.' }
+        format.html { redirect_to board_video_path(@board, @video), notice: 'Video was successfully updated.' }
         format.json { render :show, status: :ok, location: @video }
       else
         format.html { render :edit }
@@ -69,7 +73,7 @@ class VideosController < ApplicationController
   def destroy
     @video.destroy
     respond_to do |format|
-      format.html { redirect_to videos_url, notice: 'Video was successfully destroyed.' }
+      format.html { redirect_to boards_url, notice: 'Video was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -80,8 +84,30 @@ class VideosController < ApplicationController
       @video = Video.find(params[:id])
     end
 
+    def set_board
+      @board = Board.find(params[:board_id])
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def video_params
-      params.require(:video).permit(:title, :source, :board_id, :iFrame_Source)
+      params.require(:video).permit(:title, :source, :board_id, :iFrame_Source, :type)
     end
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
