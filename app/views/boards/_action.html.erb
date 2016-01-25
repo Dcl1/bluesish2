@@ -1,0 +1,20 @@
+
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">x</span>
+
+    <%= board.id %>
+
+   	<ul>
+		<li><%= link_to 'New Post', new_board_post_path(board), class: "actionBtn" %></li>
+		<li><%= link_to 'New Article', new_board_link_path(board), class: "actionBtn"  %></li>
+		<li><%= link_to 'New Video', new_board_video_path(board), class: "actionBtn"  %></li>
+
+	</ul>	
+  </div>
+
+</div>

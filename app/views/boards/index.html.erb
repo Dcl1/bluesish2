@@ -1,25 +1,52 @@
+
+<div id="bg">
+    <img src="images/syria.jpg" alt="">
+</div>
+
+<div id="logo">
+  <img src="images/red7.png">
+</div>
+
+<!-- End of background designs -->
+
+
+
+
+
+
+
+
+
+
 <p id="notice"><%= notice %></p>
-
-<h1>Listing Boards</h1>
-
 <%= link_to 'New Board', new_board_path %>
-
 
 <br>
 
 
+<article class="tabs">
+  <ul>
+    <% @boards.each do |board| %>
+          <li><a data-id-number = "tt<%= board.id %>" href="#tt<%= board.id%>"> <%= board.title %> </a></li>
+
+    <% end %>
+  </ul>
+
 <% @boards.each do |board| %>
-  <div class="boardConfig"> <!-- Beginning of board config -->
-    <%= link_to 'New Post', new_board_post_path(board) %>
-    <%= link_to 'New Article', new_board_link_path(board) %>
-    <%= link_to 'New Video', new_board_video_path(board) %>
+  <%= render partial: 'action', locals: {board: board } %>
 
-    <br>
-    <br>
 
+  <section id="tt<%= board.id %>" > 
+
+    <div class="boardConfig" > <!-- Beginning of board config -->
+     
+      <div class="postActions"> 
+          <!-- Trigger/Open The Modal -->
+          <button id="myBtn">Open Modal</button>
+      </div>
+    <!-- Trigger/Open The Modal -->
   
-
-   
+    <div class="display">
     <% @sorted_content.select{|item| item.board_id == board.id}.each do |content| %>
       <% if content.class == Link %>
          <div class="content">
@@ -30,13 +57,13 @@
         </div>
       <% elsif content.class == Video %>
        <div class="content">
-          <div><%= image_tag content.smaller_thumbnail, :class => "style_image" %></div>
+          <div><%= image_tag content.larger_thumbnail, :class => "style_image" %></div>
           <div><%= content.title %></div>
           <div><%= content.created_at %></div>
           <div><%= link_to 'Show', board_video_path(board, content) %></div>
         </div>
       <% elsif content.class == Post %>
-        <div class="content">
+        <div class="content postStyle">
           <div><h3><%=  content.title %></h3></div>
           <div><%=  content.source %> </div>
           <div><%= link_to 'Show', board_post_path(board, content) %> </div>
@@ -46,43 +73,14 @@
       <% end %>
     <% end %>
 
-
-
-
-    <h3> <%= board.title %> </h3>
-    <h3> <%= board.id %> </h3>
-    <div><%= link_to 'Show', board %></div>
-    <div><%= link_to 'Destroy', board, method: :delete, data: { confirm: 'Are you sure?' } %></div>
-
-    <br>
-    <div>
-
-    </div>
+    
+ 
+    </div> <!-- End of board config -->
+  </section> 
   </div> <!-- End of board config -->
 
 <% end %>
-
-<!--
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @boards.each do |board| %>
-      <tr>
-        <td><%= board.title %></td>
-        <td><%= link_to 'Show', board %></td>
-        <td><%= link_to 'Edit', edit_board_path(board) %></td>
-        <td><%= link_to 'Destroy', board, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
--->
+</article>
 
 
 
